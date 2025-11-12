@@ -19,6 +19,150 @@ PotentialTestCase = collections.namedtuple(
 
 potential_tests = []
 
+
+
+
+# BPBCore
+potential_tests += [
+    # test the calculation of force and potential
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBCore,
+        {"epsilon": 2.0},
+        1.5,
+        False,
+        1.05,
+        0.0985,
+        0.5477,
+    ),
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBCore,
+        {"epsilon": 3.0},
+        2.05,
+        False,
+        1.05,
+        0.4985,
+        1.2464,
+    ),
+    # test the cases where the potential should be zero
+    # outside cutoff
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBCore,
+        {"epsilon": 1.0},
+        1.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+    # inside cutoff but epsilon = 0
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBCore,
+        {"epsilon": 0.0},
+        3.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+]
+
+# BPBInter
+potential_tests += [
+    # test the calculation of force and potential
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBInter,
+        {"epsilon": 2.0},
+        1.5,
+        False,
+        1.05,
+        0.0985,
+        0.5477,
+    ),
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBInter,
+        {"epsilon": 3.0},
+        2.05,
+        False,
+        1.05,
+        0.4985,
+        1.2464,
+    ),
+    # test the cases where the potential should be zero
+    # outside cutoff
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBInter,
+        {"epsilon": 1.0},
+        1.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+    # inside cutoff but epsilon = 0
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBInter,
+        {"epsilon": 0.0},
+        3.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+]
+
+# BPBTail
+potential_tests += [
+    # test the calculation of force and potential
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBTail,
+        {"epsilon": 2.0},
+        1.5,
+        False,
+        1.05,
+        0.0985,
+        0.5477,
+    ),
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBTail,
+        {"epsilon": 3.0},
+        2.05,
+        False,
+        1.05,
+        0.4985,
+        1.2464,
+    ),
+    # test the cases where the potential should be zero
+    # outside cutoff
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBTail,
+        {"epsilon": 1.0},
+        1.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+    # inside cutoff but epsilon = 0
+    PotentialTestCase(
+        hoomd.azplugins.pair.BPBTail,
+        {"epsilon": 0.0},
+        3.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+]
+
+
+
+
+
+
+
+
+
+
 # Colloid
 potential_tests += [
     # test the calculation of force and potential for Solvent-Solvent

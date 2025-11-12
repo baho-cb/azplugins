@@ -11,6 +11,168 @@ from hoomd.md import pair
 from hoomd.variant import Variant
 
 
+class BPBCore(pair.Pair):
+    r"""Hertz potential.
+
+    Args:
+        nlist (hoomd.md.nlist.NeighborList): Neighbor list.
+        r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
+        mode (str): Energy shifting/smoothing mode.
+
+    The `Hertz` potential is:
+
+    .. math::
+
+        U(r) = \varepsilon \left( 1-\frac{ r }{ r_{\rm{cut}} } \right)^{5/2} ,
+                \quad r < r_{\rm{cut}}
+
+    Example::
+
+        nl = hoomd.md.nlist.cell()
+        hertz = azplugins.pair.Hertz(r_cut=3.0, nlist=nl)
+        hertz.params[("A", "A")] = dict(epsilon=1.0)
+        hertz.r_cut[("A", "B")] = 3.0
+
+    .. py:attribute:: params
+
+        The `Hertz` potential parameters. The dictonary has the following key:
+
+        * ``epsilon`` (`float`, **required**) - energy parameter
+          :math:`\varepsilon` :math:`[\mathrm{energy}]`
+
+        Type: :class:`~hoomd.data.typeparam.TypeParameter` [`tuple`
+        [``particle_type``, ``particle_type``], `dict`]
+
+    .. py:attribute:: mode
+
+        Energy shifting/smoothing mode: ``"none"``, ``"shift"``, or ``"xplor"``.
+
+        Type: `str`
+
+    """
+
+    _ext_module = _azplugins
+    _cpp_class_name = "PotentialPairBPBCore"
+    _accepted_modes = ("none", "shift", "xplor")
+
+    def __init__(self, nlist, default_r_cut=None, default_r_on=0, mode="none"):
+        super().__init__(nlist, default_r_cut, default_r_on, mode)
+        params = TypeParameter(
+            "params",
+            "particle_types",
+            TypeParameterDict(epsilon=float, sigma=float, len_keys=2),
+        )
+        self._add_typeparam(params)
+
+class BPBInter(pair.Pair):
+    r"""Hertz potential.
+
+    Args:
+        nlist (hoomd.md.nlist.NeighborList): Neighbor list.
+        r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
+        mode (str): Energy shifting/smoothing mode.
+
+    The `Hertz` potential is:
+
+    .. math::
+
+        U(r) = \varepsilon \left( 1-\frac{ r }{ r_{\rm{cut}} } \right)^{5/2} ,
+                \quad r < r_{\rm{cut}}
+
+    Example::
+
+        nl = hoomd.md.nlist.cell()
+        hertz = azplugins.pair.Hertz(r_cut=3.0, nlist=nl)
+        hertz.params[("A", "A")] = dict(epsilon=1.0)
+        hertz.r_cut[("A", "B")] = 3.0
+
+    .. py:attribute:: params
+
+        The `Hertz` potential parameters. The dictonary has the following key:
+
+        * ``epsilon`` (`float`, **required**) - energy parameter
+          :math:`\varepsilon` :math:`[\mathrm{energy}]`
+
+        Type: :class:`~hoomd.data.typeparam.TypeParameter` [`tuple`
+        [``particle_type``, ``particle_type``], `dict`]
+
+    .. py:attribute:: mode
+
+        Energy shifting/smoothing mode: ``"none"``, ``"shift"``, or ``"xplor"``.
+
+        Type: `str`
+
+    """
+
+    _ext_module = _azplugins
+    _cpp_class_name = "PotentialPairBPBInter"
+    _accepted_modes = ("none", "shift", "xplor")
+
+    def __init__(self, nlist, default_r_cut=None, default_r_on=0, mode="none"):
+        super().__init__(nlist, default_r_cut, default_r_on, mode)
+        params = TypeParameter(
+            "params",
+            "particle_types",
+            TypeParameterDict(epsilon=float, sigma=float, len_keys=2),
+        )
+        self._add_typeparam(params)
+        
+
+
+class BPBTail(pair.Pair):
+    r"""Hertz potential.
+
+    Args:
+        nlist (hoomd.md.nlist.NeighborList): Neighbor list.
+        r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
+        mode (str): Energy shifting/smoothing mode.
+
+    The `Hertz` potential is:
+
+    .. math::
+
+        U(r) = \varepsilon \left( 1-\frac{ r }{ r_{\rm{cut}} } \right)^{5/2} ,
+                \quad r < r_{\rm{cut}}
+
+    Example::
+
+        nl = hoomd.md.nlist.cell()
+        hertz = azplugins.pair.Hertz(r_cut=3.0, nlist=nl)
+        hertz.params[("A", "A")] = dict(epsilon=1.0)
+        hertz.r_cut[("A", "B")] = 3.0
+
+    .. py:attribute:: params
+
+        The `Hertz` potential parameters. The dictonary has the following key:
+
+        * ``epsilon`` (`float`, **required**) - energy parameter
+          :math:`\varepsilon` :math:`[\mathrm{energy}]`
+
+        Type: :class:`~hoomd.data.typeparam.TypeParameter` [`tuple`
+        [``particle_type``, ``particle_type``], `dict`]
+
+    .. py:attribute:: mode
+
+        Energy shifting/smoothing mode: ``"none"``, ``"shift"``, or ``"xplor"``.
+
+        Type: `str`
+
+    """
+
+    _ext_module = _azplugins
+    _cpp_class_name = "PotentialPairBPBTail"
+    _accepted_modes = ("none", "shift", "xplor")
+
+    def __init__(self, nlist, default_r_cut=None, default_r_on=0, mode="none"):
+        super().__init__(nlist, default_r_cut, default_r_on, mode)
+        params = TypeParameter(
+            "params",
+            "particle_types",
+            TypeParameterDict(epsilon=float, sigma=float, len_keys=2),
+        )
+        self._add_typeparam(params)
+
+
 class Colloid(pair.Pair):
     r"""Colloid pair potential.
 

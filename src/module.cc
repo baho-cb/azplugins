@@ -69,6 +69,9 @@ void export_ParabolicFlow(pybind11::module&);
 
 // pair
 void export_AnisoPotentialPairTwoPatchMorse(pybind11::module&);
+void export_PotentialPairBPBCore(pybind11::module&);
+void export_PotentialPairBPBInter(pybind11::module&);
+void export_PotentialPairBPBTail(pybind11::module&);
 void export_PotentialPairColloid(pybind11::module&);
 void export_PotentialPairCooke(pybind11::module&);
 void export_PotentialPairExpandedYukawa(pybind11::module&);
@@ -95,6 +98,9 @@ void export_SphericalHarmonicBarrierGPU(pybind11::module&);
 
 // pair
 void export_AnisoPotentialPairTwoPatchMorseGPU(pybind11::module&);
+void export_PotentialPairBPBCoreGPU(pybind11::module&);
+void export_PotentialPairBPBInterGPU(pybind11::module&);
+void export_PotentialPairBPBTailGPU(pybind11::module&);
 void export_PotentialPairColloidGPU(pybind11::module&);
 void export_PotentialPairCookeGPU(pybind11::module&);
 void export_PotentialPairExpandedYukawaGPU(pybind11::module&);
@@ -135,6 +141,9 @@ PYBIND11_MODULE(_azplugins, m)
 
     // pair
     export_AnisoPotentialPairTwoPatchMorse(m);
+    export_PotentialPairBPBCore(m);
+    export_PotentialPairBPBInter(m);
+    export_PotentialPairBPBTail(m);
     export_PotentialPairColloid(m);
     export_PotentialPairCooke(m);
     export_PotentialPairExpandedYukawa(m);
@@ -161,6 +170,9 @@ PYBIND11_MODULE(_azplugins, m)
 
     // pair
     export_AnisoPotentialPairTwoPatchMorseGPU(m);
+    export_PotentialPairBPBCoreGPU(m);
+    export_PotentialPairBPBInterGPU(m);
+    export_PotentialPairBPBTailGPU(m);
     export_PotentialPairColloidGPU(m);
     export_PotentialPairCookeGPU(m);
     export_PotentialPairExpandedYukawaGPU(m);
