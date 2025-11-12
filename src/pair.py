@@ -117,6 +117,66 @@ class Colloid(pair.Pair):
         )
         self._add_typeparam(params)
 
+class Cooke(pair.Pair):
+    r"""Cooke potential.
+
+    Args:
+        nlist (hoomd.md.nlist.NeighborList): Neighbor list.
+        r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
+        mode (str): Energy shifting/smoothing mode.
+
+    The `Cooke` potential is:
+
+    .. math::
+
+        U(r) = \varepsilon \left( 1-\frac{ r }{ r_{\rm{cut}} } \right)^{5/2} ,
+                \quad r < r_{\rm{cut}}
+
+    Example::
+
+        nl = hoomd.md.nlist.cell()
+        cooke = azplugins.pair.Cooke(r_cut=3.0, nlist=nl)
+        cooke.params[("A", "A")] = dict(epsilon=1.0, rc=2**(1./6.), wc=1.4)
+        cooke.r_cut[("A", "B")] = 2**(1./6.) + 1.4
+
+    .. py:attribute:: params
+
+        The `Cooke` potential parameters. The dictonary has the following key:
+
+        * ``epsilon`` (`float`, **required**) - energy parameter
+          :math:`\varepsilon` :math:`[\mathrm{energy}]`
+
+        * ``rc`` (`float`, **required**) - particle core size parameter
+          :math:`rc` :math:`[\mathrm{length}]`
+
+        * ``wc`` (`float`, **required**) - width of attractive depth
+          :math:`rc` :math:`[\mathrm{length}]`
+
+        Type: :class:`~hoomd.data.typeparam.TypeParameter` [`tuple`
+        [``particle_type``, ``particle_type``], `dict`]
+
+    .. py:attribute:: mode
+
+        Energy shifting/smoothing mode: ``"none"``, ``"shift"``, or ``"xplor"``.
+
+        Type: `str`
+
+    """
+
+    _ext_module = _azplugins
+    _cpp_class_name = "PotentialPairCooke"
+    _accepted_modes = ("none", "shift", "xplor")
+
+    def __init__(self, nlist, default_r_cut=None, default_r_on=0, mode="none"):
+        super().__init__(nlist, default_r_cut, default_r_on, mode)
+        params = TypeParameter(
+            "params",
+            "particle_types",
+            TypeParameterDict(epsilon=float, rc=float, wc=float, len_keys=2),
+        )
+        self._add_typeparam(params)
+
+
 
 class DPDGeneralWeight(pair.Pair):
     r"""Dissipative Particle Dynamics with generalized weight function.
@@ -349,6 +409,7 @@ class Hertz(pair.Pair):
             TypeParameterDict(epsilon=float, len_keys=2),
         )
         self._add_typeparam(params)
+
 
 
 class PerturbedLennardJones(pair.Pair):

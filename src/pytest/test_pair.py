@@ -72,6 +72,51 @@ potential_tests += [
     ),
 ]
 
+# Cooke
+potential_tests += [
+    # test the calculation of force and potential
+    PotentialTestCase(
+        hoomd.azplugins.pair.Cooke,
+        {"epsilon": 2.0},
+        1.5,
+        False,
+        1.05,
+        0.0985,
+        0.5477,
+    ),
+    PotentialTestCase(
+        hoomd.azplugins.pair.Cooke,
+        {"epsilon": 3.0},
+        2.05,
+        False,
+        1.05,
+        0.4985,
+        1.2464,
+    ),
+    # test the cases where the potential should be zero
+    # outside cutoff
+    PotentialTestCase(
+        hoomd.azplugins.pair.Cooke,
+        {"epsilon": 1.0},
+        1.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+    # inside cutoff but epsilon = 0
+    PotentialTestCase(
+        hoomd.azplugins.pair.Cooke,
+        {"epsilon": 0.0},
+        3.0,
+        False,
+        1.05,
+        0,
+        0,
+    ),
+]
+
+
 # DPDGeneralWeight
 potential_tests += [
     # test the calculation of force and potential (needs kT=0 for zero random force)
