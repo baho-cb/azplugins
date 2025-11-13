@@ -99,7 +99,7 @@ class PairEvaluatorBPBTail : public PairEvaluator
             {
             const Scalar sigma_over_rsq = sigma*sigma/rsq;
             pair_eng = Scalar(-1.0) *sigma_over_rsq*epsilon;   
-            force_divr = (Scalar(-2.0) * pair_eng) / rsq;   
+            force_divr = (Scalar(2.0) * pair_eng) / rsq;   
             return true;
             }
         else
