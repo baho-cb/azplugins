@@ -98,9 +98,8 @@ class PairEvaluatorBPBInter : public PairEvaluator
         if (rsq < rcutsq && epsilon != Scalar(0))
             {
             const Scalar sigma_over_rsq = sigma*sigma/rsq;
-            const Scalar sigma_over_r6 = sigma_over_rsq*sigma_over_rsq*sigma_over_rsq;
-            pair_eng = Scalar(-1.0) *sigma_over_r6*epsilon;   
-            force_divr = (Scalar(6.0) * pair_eng) / rsq;         
+            pair_eng = Scalar(-1.0) *sigma_over_rsq*epsilon;   
+            force_divr = (Scalar(2.0) * pair_eng) / rsq;   
             return true;
             }
         else
